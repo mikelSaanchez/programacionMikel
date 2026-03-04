@@ -1,0 +1,140 @@
+package ejercicio16Herencia;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
+public class Principal {
+
+	public static void main(String[] args) throws NumberFormatException, IOException {
+		BufferedReader leer = new BufferedReader(new InputStreamReader(System.in));
+
+		ArrayList<Deportistas> deportistas = new ArrayList<Deportistas>();
+
+		boolean salir = false;
+		do {
+			System.out.println("\n=== Club Deportivo ===");
+			System.out.println("1. Registrar Deportista");
+			System.out.println("2. Añadir Torneo a Tenista:");
+			System.out.println("3. Mostrar todos los Deportistas:");
+			System.out.println("4. Buscar por Equipo:");
+			System.out.println("5. Ranking de Tenis:");
+			System.out.println("6. Estadísticas Globales:");
+			System.out.println("7. Salir.");
+			System.out.print("¿Qué desea consultar?: ");
+
+			int opcion = -1;
+			boolean datosOK = false;
+			while (!datosOK) {
+				try {
+					opcion = Integer.parseInt(leer.readLine());
+					datosOK = true;
+				} catch (NumberFormatException | IOException e) {
+					System.err.println("Solo puedes introducir números");
+				}
+			}
+
+			switch (opcion) {
+			case 1:
+				System.out.println("=== Añadir contenido ===");
+				añadirContenido(deportistas);
+				break;
+			case 2:
+				System.out.println("=== Añadir Torneo a Tenista ===");
+				añadirTorneo(deportistas);
+				break;
+			case 3:
+				System.out.println("=== Añadir contenido a playlist ===");
+				mostrarDatos(deportistas);
+				break;
+			case 4:
+				System.out.println("=== Estadísticas del perfil ===");
+
+				break;
+			case 5:
+				System.out.println("¡Saliendo!");
+				salir = true;
+				break;
+			default:
+				System.out.println("Opción no válida");
+			}
+		} while (!salir);
+
+	}
+
+	private static void añadirContenido(ArrayList<Deportistas> deportistas) throws NumberFormatException, IOException {
+		BufferedReader leer = new BufferedReader(new InputStreamReader(System.in));
+
+		System.out.println("¿Cuántos deportistas desea añadir?: ");
+		int contenidosAñadir = Integer.parseInt(leer.readLine());
+
+		for (int i = 0; i < contenidosAñadir; i++) {
+			System.out.println("Añadiendo la persona " + (i + 1) + " de " + contenidosAñadir);
+			String tipoDeportista = "";
+			do {
+				System.out.println("Tipo de deportista (futbolista o tenista): ");
+				tipoDeportista = leer.readLine();
+				if ((!tipoDeportista.equalsIgnoreCase("futbolista") && !tipoDeportista.equalsIgnoreCase("tenista"))) {
+					System.out.println("Introduce una opción válida");
+				}
+			} while ((!tipoDeportista.equalsIgnoreCase("futbolista") && !tipoDeportista.equalsIgnoreCase("tenista")));
+
+			if (tipoDeportista.equalsIgnoreCase("futbolista")) {
+				Futbolistas f = new Futbolistas();
+				f.pedirDatos(deportistas);
+				deportistas.add(f);
+			} else {
+				Tenistas t = new Tenistas();
+				t.pedirDatos(deportistas);
+				deportistas.add(t);
+			}
+		}
+	}
+
+	public static int pedirID() throws IOException {
+		BufferedReader leer = new BufferedReader(new InputStreamReader(System.in));
+		boolean datosOK = false;
+		int idABuscar = -1;
+		while (!datosOK) {
+			try {
+				System.out.println("Introduce el ID del deportista : ");
+				idABuscar = Integer.parseInt(leer.readLine());
+				datosOK = true;
+			} catch (NumberFormatException | IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return idABuscar;
+	}
+
+	private static void añadirTorneo(ArrayList<Deportistas> deportistas) throws IOException {
+		int idABuscar = pedirID();
+
+		boolean enc = false;
+		for (Deportistas deportistasAbuscar : deportistas) {
+			if (deportistasAbuscar.getDni() == idABuscar) {
+				if (deportistasAbuscar instanceof Tenistas) {
+					((Tenistas) deportistasAbuscar).añadirTorneo();
+					enc = true;
+				} else {
+					System.out.println("El deportista introducido no es un tenista.");
+				}
+			}
+		}
+		if (!enc) {
+			System.out.println("No se ha encontrado el deportista.");
+		}
+	}
+
+	private static void mostrarDatos(ArrayList<Deportistas> deportistas) {
+		for (Deportistas d : deportistas) {
+			if (d instanceof Futbolistas) {
+				((Futbolistas) d).mostrarDatos();
+			} else {
+				((Tenistas) d).mostrarDatos();
+			}
+		}
+
+	}
+}

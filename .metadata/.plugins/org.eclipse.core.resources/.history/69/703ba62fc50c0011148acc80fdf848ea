@@ -1,0 +1,28 @@
+package ejercicio16Herencia;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
+public class Futbolistas extends Deportistas{
+	
+	private String posicion;
+	private int numGoles;
+	private String equipo;
+	
+	public void pedirDatos(ArrayList<Personas> personas) throws IOException {
+		BufferedReader leer = new BufferedReader(new InputStreamReader(System.in));
+		super.pedirDatos(personas);
+		
+		System.out.println("Introduce la posicion:");
+		posicion = leer.readLine();
+
+		System.out.println("Introduce el num de goles :");
+		numGoles = Integer.parseInt(leer.readLine());
+
+		System.out.println("Introduce el equipo:");
+		equipo = leer.readLine();
+		
+	}
+}

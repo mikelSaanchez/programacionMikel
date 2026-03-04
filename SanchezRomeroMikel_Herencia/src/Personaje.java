@@ -1,0 +1,78 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+
+public class Personaje {
+
+	private String alias;
+	private String nombre;
+	private int nivel;
+	private LocalDate fechaRegistro;
+
+	public void pedirDatos(ArrayList<Personaje> personajes) throws IOException {
+		BufferedReader leer = new BufferedReader(new InputStreamReader(System.in));
+		do {
+			System.out.println("Introduce el alias:");
+			alias = leer.readLine();
+
+			if (estaRepetido(personajes, alias) == true) {
+				System.out.println("ERROR: Ya existe un personaje con el alias " + alias);
+			}
+		} while (estaRepetido(personajes, alias) == true);
+
+		System.out.println("Nombre real::");
+		nombre = leer.readLine();
+		do {
+			System.out.println("Introduce el nivel (1-100):");
+			nivel = Integer.parseInt(leer.readLine());
+
+			if (nivel < 1 || nivel > 100)
+				System.out.println("El nivel tiene que estar entre 1 y 100");
+
+		} while (nivel < 1 || nivel > 100);
+		
+		boolean datosOk = false;
+		do {
+			try {
+				System.out.println("Añadir fecha de la cita en formato dd/mm/yyyy: ");
+				String fechaTemp = leer.readLine();
+				DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+				fechaRegistro = LocalDate.parse(fechaTemp, formato);
+				datosOk = true;
+			} catch (Exception e) {
+				System.out.println("La fecha estaba en formato incorrecto");
+			}
+		} while (!datosOk);
+	}
+
+	private boolean estaRepetido(ArrayList<Personaje> personajes, String alias) {
+		for (int i = 0; i < (personajes.size() - 1); i++) {
+			if (personajes.get(i).getAlias().equalsIgnoreCase(alias) == true) {
+				return true;
+			}
+
+		}
+		return false;
+
+	}
+
+	public String getAlias() {
+		return alias;
+	}
+
+	public int getNivel() {
+		return nivel;
+	}
+
+	public void mostrarDatos() {
+		System.out.println("-- HÉROES CON IDENTIDAD SECRETA ---");
+		System.out.println("Alias:" + this.alias);
+		System.out.println("Nombre real:" + this.nombre);
+		System.out.println("Nivel de poder:" + this.nivel);
+		System.out.println("Fecha  " + this.fechaRegistro);
+	}
+
+}

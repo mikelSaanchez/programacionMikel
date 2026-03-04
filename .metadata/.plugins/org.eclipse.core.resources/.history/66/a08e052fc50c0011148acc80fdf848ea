@@ -1,0 +1,14 @@
+package ejercicio16Herencia;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+public class Deportistas extends Personas{
+
+	
+	public void pedirDatos(ArrayList<Personas> personas) throws IOException {
+		super.pedirDatos(personas);
+		
+	}
+
+}

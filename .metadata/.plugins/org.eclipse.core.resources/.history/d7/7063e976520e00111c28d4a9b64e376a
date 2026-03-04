@@ -1,0 +1,31 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.time.LocalDate;
+import java.util.ArrayList;
+
+public class Personaje {
+
+	private String alias;
+	private String nombre;
+	private int nivel;
+	private LocalDate fechaRegistro;
+	
+	public void pedirDatos(ArrayList<Personaje> personajes) throws IOException {
+		BufferedReader leer = new BufferedReader(new InputStreamReader(System.in));
+		
+		System.out.println("Alias:");
+		alias = leer.readLine();
+		System.out.println("Nombre real::");
+		nombre = leer.readLine();
+		do {
+			System.out.println("Introduce el nivel (1-100):");
+			nivel = Integer.parseInt(leer.readLine());
+
+			if (nivel < 1 || nivel > 100)
+				System.out.println("El nivel tiene que estar entre 1 y 100");
+
+		} while (nivel < 1 || nivel > 100);
+		
+	}
+}

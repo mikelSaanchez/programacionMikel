@@ -1,0 +1,98 @@
+package ejercicio1Ficheros;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+
+public class Alumno {
+
+	private int expendiente;
+	private String nombre;
+	private double[] notas = new double[3];
+
+	public void pedirDatos() {
+		BufferedReader leer = new BufferedReader(new InputStreamReader(System.in));
+
+		boolean todoOk = false;
+
+		do {
+			try {
+				System.out.println("Añada el numero de expediente: ");
+				expendiente = Integer.parseInt(leer.readLine());
+
+				System.out.println("Introduce el nombre ");
+				nombre = leer.readLine();
+
+				for (int i = 0; i < notas.length; i++) {
+					System.out.println("Introduce nota " + (i + 1));
+					notas[i] = Integer.parseInt(leer.readLine());
+				}
+				todoOk = true;
+			} catch (NumberFormatException | IOException e) {
+				e.printStackTrace();
+			}
+
+		} while (!todoOk);
+
+	}
+
+	public void guardar(boolean añadir) {
+		File f = new File("./alumno.txt");
+		FileWriter fw;
+		try {
+			fw = new FileWriter(f, añadir);
+			PrintWriter pw = new PrintWriter(fw);
+
+			pw.println("Numero de expediente: " + expendiente);
+			pw.println("Nombre: " + nombre);
+			pw.println("Notas: ");
+			for (int i = 0; i < notas.length; i++) {
+				pw.println(notas[i]);
+			}
+
+			pw.flush();
+			fw.close();
+			pw.close();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public double calcularMedia() {
+		double media = 0;
+
+		for (int i = 0; i < 3; i++) {
+			media = media + notas[i];
+		}
+		return media / 3;
+	}
+
+	public int getExpendiente() {
+		return expendiente;
+	}
+
+	public void setExpendiente(int expendiente) {
+		this.expendiente = expendiente;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public double[] getNotas() {
+		return notas;
+	}
+
+	public void setNotas(double[] notas) {
+		this.notas = notas;
+	}
+
+}

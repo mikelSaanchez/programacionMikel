@@ -1,0 +1,148 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
+public class Principal {
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader leer = new BufferedReader(new InputStreamReader(System.in));
+
+		ArrayList<Personaje> personajes = new ArrayList<>();
+
+		boolean salir = false;
+		do {
+			System.out.println("\n=== BASE DE DATOS SHIELD ===");
+			System.out.println("1. ¡Vengadores, reuníos! (Registrar Personaje)");
+			System.out.println("2. Yo soy Iron Man (Filtrar Héroes por Identidad Secreta)");
+			System.out.println("3. Misión 616 (Enfrentamiento)");
+			System.out.println("4. HYDRA (Salir)");
+			System.out.print("Introduce una opción: ");
+
+			int opcion = -1;
+			boolean datosOK = false;
+			while (!datosOK) {
+				try {
+					opcion = Integer.parseInt(leer.readLine());
+					datosOK = true;
+				} catch (NumberFormatException | IOException e) {
+					System.err.println("Solo puedes introducir números");
+				}
+			}
+
+			switch (opcion) {
+			case 1:
+				System.out.println("=== REGISTRAR PERSONAJE  ===");
+				registrarPersonaje(personajes);
+				break;
+			case 2:
+				System.out.println("=== HÉROES CON IDENTIDAD SECRETA  ===");
+				mostrarHeroesConIdentidadSecreta(personajes);
+				break;
+			case 3:
+				System.out.println("=== BATALLA ÉPICA  ===");
+				enfrentamiento(personajes);
+				break;
+			case 4:
+				System.out.println("¡HYDRA se ha infiltrado en el sistema! ");
+				salir = true;
+				break;
+			default:
+				System.out.println("Opción no válida");
+			}
+
+		} while (!salir);
+	}
+
+	private static void registrarPersonaje(ArrayList<Personaje> personajes) throws IOException {
+		BufferedReader leer = new BufferedReader(new InputStreamReader(System.in));
+
+		boolean datosOK = false;
+		String tipoHeroe = "";
+		while (!datosOK) {
+
+			try {
+
+				do {
+					System.out.println("Introduce si quiere añador un Heroe o un Villano");
+					tipoHeroe = leer.readLine();
+					if (!tipoHeroe.equalsIgnoreCase("Heroe") && !tipoHeroe.equalsIgnoreCase("Villano"))
+						System.out.println("Tienes que introducir un tipo valido");
+				} while (!tipoHeroe.equalsIgnoreCase("Heroe") && !tipoHeroe.equalsIgnoreCase("Villano"));
+
+				datosOK = true;
+			} catch (IOException e) {
+				System.out.println("Has introducido mal algún dato, crack");
+				e.printStackTrace();
+			}
+
+		}
+
+		if (tipoHeroe.equalsIgnoreCase("Heroe")) {
+			Heroe heroes = new Heroe();
+			heroes.pedirDatos(personajes);
+			personajes.add(heroes);
+		} else {
+			Villano villanos = new Villano();
+			villanos.pedirDatos(personajes);
+			personajes.add(villanos);
+		}
+
+	}
+
+	private static void mostrarHeroesConIdentidadSecreta(ArrayList<Personaje> personajes) {
+		boolean enc = false;
+		for (Personaje p : personajes) {
+			if (p instanceof Heroe) {
+				if (((Heroe) p).isIdentidadSecreta() == true) {
+					((Heroe) p).mostrarDatos();
+					enc = true;
+				}
+			}
+		}
+
+		if (!enc)
+			System.out.println("No se encontraron héroes con identidad secreta");
+
+	}
+
+	private static void enfrentamiento(ArrayList<Personaje> personajes) throws IOException {
+		BufferedReader leer = new BufferedReader(new InputStreamReader(System.in));
+		boolean enc = false;
+
+		System.out.print("Introduce el alias del villano:");
+		String aliasABuscar = leer.readLine();
+
+		for (Personaje p : personajes) {
+			if (p.getAlias().equalsIgnoreCase(aliasABuscar)) {
+
+				System.out.println("Villano encontrado!");
+				System.out.println("Archienemigo: " + ((Villano) p).getArchienemigo());
+				enc = true;
+			}
+		}
+		int puntosHeroe = 0;
+		int puntosVillano = 0;
+		for (Personaje p : personajes) {
+			if (p instanceof Heroe) {
+				puntosHeroe = p.getNivel();
+			} else if (p instanceof Villano) {
+				puntosVillano = p.getNivel();
+			}
+		}
+		for (Personaje p : personajes) {
+			if (p instanceof Heroe) {
+				if (puntosHeroe < puntosVillano) {
+					System.out.println(((Heroe) p).getAlias() + " Gana la batalla");
+				}
+			} else {
+				System.out.println(((Villano) p).getAlias() + " Gana la batalla");
+
+			}
+		}
+		if (!enc) {
+			System.out.println("El archienemigo no está registrado\r\n" + "en el sistema");
+		}
+	}
+
+}

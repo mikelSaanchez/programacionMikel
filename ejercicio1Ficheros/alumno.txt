@@ -1,0 +1,24 @@
+Numero de expediente: 1
+Nombre: mikel
+Notas: 
+2.0
+2.0
+2.0
+Numero de expediente: 2
+Nombre: mikel
+Notas: 
+3.0
+4.0
+5.0
+Numero de expediente: 3
+Nombre: joseluis
+Notas: 
+7.0
+8.0
+8.0
+Numero de expediente: 1231
+Nombre: 13
+Notas: 
+1231.0
+123.0
+123.0

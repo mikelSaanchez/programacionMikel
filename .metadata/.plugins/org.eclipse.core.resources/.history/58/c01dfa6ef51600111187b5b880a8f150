@@ -1,0 +1,42 @@
+package ejercicio3Ficheros;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Reseña {
+
+	private String nombreVideoJuego;
+	private String nombreJugador;
+	private double calificicacion;
+	private String comentario;
+
+	public void pedirDatos() {
+		BufferedReader leer = new BufferedReader(new InputStreamReader(System.in));
+
+		boolean todoOk = false;
+
+		do {
+			try {
+				System.out.println("Introduce el nombre del jugador ");
+				nombreJugador = leer.readLine();
+				
+				System.out.println("Introduce el nombre del jugador ");
+				nombreVideoJuego = leer.readLine();
+
+				do {
+					System.out.println("Añada la reseña: ");
+					calificicacion = Integer.parseInt(leer.readLine());
+				} while (calificicacion < 1 || calificicacion > 10);
+
+				System.out.println("Introduce el comentario ");
+				comentario = leer.readLine();
+
+				todoOk = true;
+			} catch (NumberFormatException | IOException e) {
+				e.printStackTrace();
+			}
+		} while (!todoOk);
+	}
+
+}

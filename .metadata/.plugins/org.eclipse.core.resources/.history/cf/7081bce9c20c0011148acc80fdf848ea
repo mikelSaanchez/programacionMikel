@@ -1,0 +1,13 @@
+package ejercicio16Herencia;
+
+import java.util.ArrayList;
+
+public class Deportistas extends Personas{
+
+	
+	public void pedirDatos(ArrayList<Personas> personas) {
+		super.pedirDatos(personas);
+		
+	}
+
+}

@@ -1,0 +1,35 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
+public class Villano extends Personaje{
+	private String archienemigo;
+	private int numCrimenes;
+	
+	
+	public void pedirDatos(ArrayList<Personaje> personajes) throws IOException {
+		BufferedReader leer = new BufferedReader(new InputStreamReader(System.in));
+		super.pedirDatos(personajes);
+		System.out.println("-------------");
+		do {
+			System.out.print("Introduce El numero de crimenes: ");
+			numCrimenes = Integer.parseInt(leer.readLine());
+			if (numCrimenes < 0)
+				System.out.println("El numero de crimenes no puede ser negativo");
+		} while (numCrimenes < 0);
+		
+		System.out.println("Archienemigo:");
+		archienemigo = leer.readLine();
+	}
+	public void mostrarDatos() {
+		super.mostrarDatos();
+		System.out.println("-- --- ---");
+		System.out.println("archienemigo:" + this.archienemigo);
+		System.out.println("Numero de crimenes:" + this.numCrimenes);
+	}
+	public String getArchienemigo() {
+		return archienemigo;
+	}
+	
+}

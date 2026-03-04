@@ -1,0 +1,14 @@
+package ejercicio3Ficheros;
+
+import java.util.ArrayList;
+
+public class videoJuego {
+	
+	private String nombre;
+	private ArrayList<Integer>notas;
+	
+	public videoJuego(String nombre) {
+		this.nombre = nombre;
+		
+	}
+}

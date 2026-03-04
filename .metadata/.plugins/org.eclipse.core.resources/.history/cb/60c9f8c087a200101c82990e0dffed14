@@ -1,0 +1,25 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class ejercicio18 {
+
+	public static void main(String[] args) throws NumberFormatException, IOException {
+		// TODO Auto-generated method stub
+		BufferedReader leer = new BufferedReader(new InputStreamReader(System.in));
+		String nombre;
+		int año;
+		System.out.println("Introduce el nombre del alumno/a:");
+		nombre=leer.readLine();
+		System.out.println("Introduce el año de nacimiento:");
+		año=Integer.parseInt(leer.readLine());
+	
+		if(año >=2012 ) {
+			double año1= 2025-año;
+			System.out.println(nombre + ", " +año1 +" años, ¿Puede salir fuera en los recreos?");
+		}
+		
+		
+	}
+
+}

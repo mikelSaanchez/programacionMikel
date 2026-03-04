@@ -1,0 +1,62 @@
+package ejercicio3Ficheros;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+
+public class Reseña {
+
+	private String nombreVideoJuego;
+	private String nombreJugador;
+	private int calificicacion;
+	private String comentario;
+
+	public void pedirDatos() {
+		BufferedReader leer = new BufferedReader(new InputStreamReader(System.in));
+
+		boolean todoOk = false;
+
+		do {
+			try {
+				System.out.println("Introduce el nombre del jugador ");
+				nombreJugador = leer.readLine();
+				
+				System.out.println("Introduce el nombre del videoJuego ");
+				nombreVideoJuego = leer.readLine();
+
+				do {
+					System.out.println("Añada la reseña: ");
+					calificicacion = Integer.parseInt(leer.readLine());
+				} while (calificicacion < 1 || calificicacion > 10);
+
+				System.out.println("Introduce el comentario ");
+				comentario = leer.readLine();
+
+				todoOk = true;
+			} catch (NumberFormatException | IOException e) {
+				e.printStackTrace();
+			}
+		} while (!todoOk);
+	}
+
+	public void guardar() {
+		File f = new File("./reseñas.txt");
+		FileWriter fw;
+		try {
+			fw = new FileWriter(f, true);
+			PrintWriter pw = new PrintWriter(fw);
+
+			pw.println(nombreJugador+";"+nombreVideoJuego+";"+calificicacion+";"+comentario);
+
+			pw.flush();
+			fw.close();
+			pw.close();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}	
+	}
+}

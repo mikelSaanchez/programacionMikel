@@ -1,0 +1,55 @@
+package ejercicio16Herencia;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Random;
+
+public class Personas {
+
+	private int dni;
+	private String nombre;
+	private int edad;
+	private String nacionalidad;
+	private String categoria;
+
+	public void pedirDatos(ArrayList<Personas> personas) throws IOException {
+
+		BufferedReader leer = new BufferedReader(new InputStreamReader(System.in));
+		Random rand = new Random();
+		int idGenerado = -1;
+		do {
+			idGenerado = rand.nextInt(1000) + 1;
+		} while (estaRepetido(personas, idGenerado));
+		dni = idGenerado;
+
+		System.out.println("Introduce el nombre del deportista:");
+		nombre = leer.readLine();
+
+		System.out.println("Introduce la edad :");
+		edad = Integer.parseInt(leer.readLine());
+
+		System.out.println("Introduce la nacionalidad:");
+		nacionalidad = leer.readLine();
+		
+		System.out.println("Introduce  la categoria:");
+		categoria = leer.readLine();
+
+	}
+
+	private boolean estaRepetido(ArrayList<Personas> personas, int idGenerado) {
+
+		for (int i = 0; i < (personas.size() - 1); i++) {
+
+			if (personas.get(i).getDni() == dni) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public int getDni() {
+		return dni;
+	}
+}

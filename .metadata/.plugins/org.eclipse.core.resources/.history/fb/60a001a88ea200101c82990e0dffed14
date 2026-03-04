@@ -1,0 +1,52 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class ejercicio19 {
+
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+		BufferedReader leer = new BufferedReader(new InputStreamReader(System.in));
+		System.out.println("Cual es el nombre del juego:");
+		String nombre=leer.readLine();
+		System.out.println("Añada la primera nota:");
+		int nota1=Integer.parseInt(leer.readLine());
+		System.out.println("Añada la segunda nota:");
+		int nota2=Integer.parseInt(leer.readLine());
+		
+		double nota3 = (Math.random() * 10)+ 1;
+		System.out.println("Añada la tercera nota(aleatoria):"+nota3);
+		
+		double media = (nota1 + nota2 +nota3)/3;
+		System.out.println("La media es:"+media);
+		
+		
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+
+}
