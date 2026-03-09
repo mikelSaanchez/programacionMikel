@@ -138,19 +138,17 @@ public class Principal {
 					pw.flush();
 					fw.close();
 					pw.close();
-					
 				}
-
 				linea = br.readLine();
 			}
 			br.close();
 			fr.close();
-			if(enc) {
+			if (enc) {
 				System.out.println("Se ha creado el archivo.");
-			}else {
+			} else {
 				System.out.println("No se ha encontrado el jugador.");
 			}
-			
+
 		} else {
 			System.out.println("El fichero no existe.");
 
