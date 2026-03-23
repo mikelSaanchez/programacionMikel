@@ -1,0 +1,7 @@
+Libro,101,El Quijote,Cervantes,1605,True,Novela
+Revista,202,National Geographic,Varios,2023,False,34
+Libro,103,Cien Años de Soledad,Gabriel García Márquez,1967,False,Novela
+Libro,104,1984,George Orwell,1949,False,Ciencia Ficción
+Revista,203,Science,Varios,2023,False,78
+Libro,105,Orgullo y Prejuicio,Jane Austen,1813,False,Romance
+Revista,204,Time,Varios,2023,False,12
