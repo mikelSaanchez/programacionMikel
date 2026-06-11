@@ -28,7 +28,7 @@ public class Fecha {
 			cadena = formato.format(hoy);
 			break;
 		default:
-			cadena = "ERROR";
+			throw new NumberFormatException();
 		}
 		return cadena;
 	}
